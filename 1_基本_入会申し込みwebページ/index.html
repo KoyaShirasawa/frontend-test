@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>入会申し込み</title>
+    <!-- 
+        これは内部参照の場合
+        <style>
+        p {
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 50px;
+        }
+    </style> -->
+
+    <!-- こっちが外部参照 -->
+    <link rel="stylesheet" href="css/sanitize.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="content">
+    <!-- h1は大見出しタグ、見出しタグごとにサイズが変わっていく -->
+    <h1>入会申し込み</h1>
+    <p>入会するには、次のフォームに必要事項をご記入ください。</p>
+    <!-- pタグはparagraphで改行する時などによく使われる -->
+
+    <div class="control">
+        <label for="mymail">メールアドレス <span class="required">必須</span></label>
+        <input id="mymail" type="email" name="mymail">
+    </div>
+    <div class="control">
+        <label for="password">パスワード <span class="required">必須</span></label>
+        <input id="password" type="password" name="password">
+    </div>
+    <div class="control">
+        <!-- ボタンは２つの方法で作れるが、button tagを使ってあげる方がいい  -->
+        <button type="submit">登録する</button>
+        <!-- これでも可能<input type="submit" value="送信"> -->
+    </div>
+</div>
+</body>
+
+</html>

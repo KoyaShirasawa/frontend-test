@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>My Photos</title>
+</head>
+<body>
+    <header>
+        <h1>My Photos</h1>
+    </header>
+
+    <div class="container">
+        <div id="img_unit">
+            <!--v-forはvue.jsのfor構文を使うということを意味する。
+                Photosが配列のオブジェクト、Photoが一つのデータ-->
+            <div class="photo" v-for="Photo in Photos"> 
+                <!-- :を入れることでVue.jsで属性がつけるように -->
+                <img :src="Photo.path">
+                <div class="inner">
+                    <p>
+                        {{ Photo.caption }} <span>{{ Photo.name }}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- <div id="vue_unit">
+            {{ greeting }}<br>
+            {{ message }}
+        </div> -->
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app = new Vue ({
+            el: '#img_unit',
+            data: {
+                Photos: [] //写真を格納するための空の配列
+            },
+            created: function() { //vueのオブジェクトが作られる時に実行される処理
+                var self = this; //グローバル変数でthisを指定しないと、jQueryのスコープになってしまう。
+                $.getJSON('https://h2o-space.com/htmlbook/images.php', function(data) {
+                    self.Photos = data; //selfはthisつまり、このスコープのオブジェクト
+                });
+            }
+        });
+
+        //--------上のVue.jsで再現したいjQueryのプログラム----------
+        // $.getJSON('https://h2o-space.com/htmlbook/images.php', 
+        // function(data) {
+        //     for (var i=0; i<data.length; i++) {
+        //         $('<div class="photo"></div>') //セレクタではなく、先にタグを書くこともできる = document.createElementみたいな
+        //             .append('<img src="' + data[i].path + '">') //appendChildみたいな感じ
+        //             .append('<div class="inner"><p>' + data[i].caption + 
+        //                     '<span>' + data[i].name + '</span></p></div>')
+        //             .appendTo('#img_unit'); //getElementbyId('img_unit').appendChildみたいな感じ
+        //     }
+        // });
+
+        // var app = new Vue ({
+        //     el: '#vue_unit',
+        //     data: {
+        //         message: 'Vue.jsで書き換えました',
+        //         greeting: 'こんにちは'
+        //     }
+        // });
+        
+    </script>
+</body>
+</html>
